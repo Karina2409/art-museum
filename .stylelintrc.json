@@ -10,7 +10,6 @@
       3,
       { "ignore": ["blockless-at-rules", "pseudo-classes"] }
     ],
-    "no-empty-source": null,
-    "string-quotes": "double"
+    "no-empty-source": null
   }
 }
