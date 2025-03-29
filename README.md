@@ -1,59 +1,76 @@
-# ArtMuseum
+# Tестовое задание Modsen Art Museum
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+## Содержание
 
-## Development server
+- [Техническое задание](#Техническое-задание)
+- [API](#API)
+- [Необходимый функционал](#Необходимый-функционал)
+- [Пример графического представления](#Пример-графического-представления)
+- [Используемые технологии](#Используемые-технологии)
+- [Тестирование](#Тестирование)
+- [Полезные ссылки](#Полезные-ссылки)
 
-To start a local development server, run:
+## Техническое задание
 
-```bash
-ng serve
-```
+Реализовать приложение для отображения каталога с картинами.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## API:
 
-## Code scaffolding
+Список API для использования (если представленные API не удовлетворяют каким-либо условиям задания, можно использовать любые другие открытые API):
+[Art API](https://api.artic.edu/docs/#introduction)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Необходимый функционал
 
-```bash
-ng generate component component-name
-```
+- Получение данных о картинах с внешнего API;
+- Отображение списка картин с возможностью пагинации;
+- Реализация формы поиска с валидацией введенных данных;
+- Использование роутинга для разделения страниц приложения;
+- Реализация дебаунса для поисковой формы;
+- Возможность добавления картины в список избранных с сохранением их в LocalStorage;
+- Возможность просмотра более детальной информации о картине;
+- Интерфейс для просмотра списка избранных и возможности удаления из списка;
+- Реализация возможности сортировки картин по различным критериям (по дате или алфавиту) (продумать самостоятельно).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Пример графического представления
 
-```bash
-ng generate --help
-```
+Ссылка на макет: ["Modsen Art Museum"](https://www.figma.com/file/XSLT4bMToK5tOdbXBBuqhP/Trainee-task-1?type=design&node-id=0-1&mode=design&t=tthepIdFQRlAXlVS-0).
 
-## Building
+### Так же проект предполагает(обязательно):
 
-To build the project run:
+- При загрузке товаров необходимо реализовать Loader;
+- Lazy loading;
+- Оптимизацию дизайна под мобильные устройства (до 390px);
+- Реализацию burger-menu;
+- Обработку ошибок c отображением нотификаций;
+- Использование алиасов для импортирования файлов;
+- Покрытие тестами 30% функциональности приложения;
+- Деплой приложения на платформу GitHub Pages или иные другие (Netlify, Vercel);
+- Настройку конфигурации eslint, prettier, husky;
+- Использование корректного GitFlow в проекте;
+- Использование сторонних библиотек для стилей - запрещены, кроме обязательных в пункте “Используемые технологии”; 
+- Использование современного синтаксиса Angular.
 
-```bash
-ng build
-```
+## Описание экранов
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Главная страница представляет собой информационную часть приложения, в которой можно выполнить поиск и отсортировать получаемые данные. Так же на главной странице необходимо реализовать пагинацию по трем картинам. При клике на выбранную картину должен осуществляться переход на страницу с детальной информацией, чтобы изучить произведение подробнее. Понравившиеся произведения можно поместить в избранное, чтобы иметь быстрый доступ к их изучению и просмотру.
 
-## Running unit tests
+## Используемые технологии
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- **_node.js_** - программная платформа, основанная на движке V8 (транслирующем JavaScript в машинный код);
+- **_eslint_** - линтер для JavaScript кода;
+- **_prettier_** - инструмент для автоформатирования кода;
+- **_yarn_** - менеджер пакетов;
+- **_angular_18_** - фреймворк для создания пользовательских интерфейсов;
+- **_bootstrap_** - фреймворк для верстки адаптивных дизайнов;
+- **_typescript_** - строго типизированный язык для уменьшения количества потенциальных багов;
+- **_jest_** - библиотека для unit-тестирования;
 
-```bash
-ng test
-```
+## Полезные ссылки
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[Angular](https://angular.dev/)
+[Eslint](https://eslint.org/docs/user-guide/configuring)
+[Prettier](https://prettier.io/docs/en/install.html)
+[Bootstrap](https://ng-bootstrap.github.io/#/components/accordion/overview)
+[Husky](https://dev.to/ivadyhabimana/setup-eslint-prettier-and-husky-in-a-node-project-a-step-by-step-guide-946)
+[GitFlow](https://www.atlassian.com/ru/git/tutorials/comparing-workflows/gitflow-workflow)
+[Commit Convention](https://www.conventionalcommits.org/en/v1.0.0/)
