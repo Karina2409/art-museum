@@ -25,7 +25,7 @@
       </svg>
     </a>
     <nav class="nav">
-      <a routerLink="home" class="nav-link">
+      <a *ngIf="!isHomePage()" routerLink="home" class="nav-link">
         <img src="home.svg" alt="Home" />
         Home
       </a>
