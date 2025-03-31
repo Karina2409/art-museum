@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Artwork } from '@models/artwork.model';
 
 @Component({
   selector: 'app-picture',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
   standalone: true,
   styleUrl: './picture.component.scss',
 })
-export class PictureComponent {}
+export class PictureComponent {
+  @Input() public artwork!: Artwork;
+}

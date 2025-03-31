@@ -3,10 +3,10 @@
   <div class="picture-info-container">
     <div class="picture-info">
       <div class="artist-info">
-        <p class="picture-title">Charles V, bust length...</p>
-        <p class="artist-name">Giovanni Britto</p>
+        <p class="picture-title">{{ artwork.title }}</p>
+        <p class="artist-name">{{ artwork.artist_display }}</p>
       </div>
-      <p class="is-public-domain">Public</p>
+      <p class="is-public-domain">{{ artwork.is_public_domain ? 'Public' : 'Private' }}</p>
     </div>
     <div class="favourite-icon">
       <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
