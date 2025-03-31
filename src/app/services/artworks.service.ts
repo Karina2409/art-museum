@@ -12,7 +12,7 @@ export class ArtworksService {
 
   public getArtworks(page: number = 1, limit: number = 3): Observable<Artwork[]> {
     const params = new HttpParams()
-      .set('fields', 'id,title,artist_display,thumbnail,is_public_domain')
+      .set('fields', 'id,title,artist_title,thumbnail,is_public_domain')
       .set('page', page.toString())
       .set('limit', limit.toString());
 

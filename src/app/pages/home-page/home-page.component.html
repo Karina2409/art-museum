@@ -1,19 +1,23 @@
-<h1 class="main-heading">
-  let's find some
-  <span>art</span>
-  here!
-</h1>
+<main class="main">
+  <section class="search-section">
+    <h1 class="main-heading">
+      let's find some
+      <span style="color: #f17900">art</span>
+      here!
+    </h1>
 
-<app-search-bar></app-search-bar>
+    <app-search-bar></app-search-bar>
+  </section>
 
-<section class="pagination-container">
-  <div class="section-heading">
-    <h3 class="section-heading-h3">Topics for you</h3>
-    <h2 class="section-heading-h2">Our special gallery</h2>
-  </div>
-  <div class="artworks-list">
-    @for (artwork of artworksList; track $index) {
-      <app-picture [artwork]="artwork"></app-picture>
-    }
-  </div>
-</section>
+  <section class="pagination-container">
+    <div class="section-heading">
+      <h3>Topics for you</h3>
+      <h2>Our special gallery</h2>
+    </div>
+    <div class="artworks-list">
+      @for (artwork of artworksList; track $index) {
+        <app-picture [artwork]="artwork"></app-picture>
+      }
+    </div>
+  </section>
+</main>

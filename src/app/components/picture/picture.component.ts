@@ -10,4 +10,16 @@ import { Artwork } from '@models/artwork.model';
 })
 export class PictureComponent {
   @Input() public artwork!: Artwork;
+
+  public ngOnInit(): void {
+    this.artwork.title = this.truncateText(25);
+  }
+
+  public truncateText(maxLength: number): string {
+    let element = this.artwork.title;
+    if (element.length > maxLength) {
+      element = element.slice(0, maxLength) + '...';
+    }
+    return element;
+  }
 }
