@@ -10,9 +10,10 @@ import { Artwork } from '@models/artwork.model';
 })
 export class PictureComponent {
   @Input() public artwork!: Artwork;
+  @Input() public isSmallVersion!: boolean;
 
   public ngOnInit(): void {
-    this.artwork.title = this.truncateText(25);
+    this.artwork.title = this.truncateText(24);
   }
 
   public truncateText(maxLength: number): string {

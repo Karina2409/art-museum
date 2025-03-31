@@ -9,14 +9,26 @@
     <app-search-bar></app-search-bar>
   </section>
 
-  <section class="pagination-container">
+  <section class="content-container">
     <div class="section-heading">
       <h3>Topics for you</h3>
       <h2>Our special gallery</h2>
     </div>
     <div class="artworks-list">
+      @for (artwork of artworksPagination; track $index) {
+        <app-picture [artwork]="artwork" [isSmallVersion]="false"></app-picture>
+      }
+    </div>
+  </section>
+
+  <section class="content-container">
+    <div class="section-heading">
+      <h3>Here some more</h3>
+      <h2>Other works for you</h2>
+    </div>
+    <div class="artworks-more-list">
       @for (artwork of artworksList; track $index) {
-        <app-picture [artwork]="artwork"></app-picture>
+        <app-picture [artwork]="artwork" [isSmallVersion]="true"></app-picture>
       }
     </div>
   </section>

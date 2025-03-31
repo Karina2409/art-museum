@@ -12,6 +12,7 @@ import { SearchBarComponent } from '@components/search-bar';
   imports: [PictureComponent, SearchBarComponent],
 })
 export class HomePageComponent {
+  public artworksPagination: Artwork[] = [];
   public artworksList: Artwork[] = [];
   public currentPage: number = 1;
   public totalPages: number = 10;
@@ -19,25 +20,34 @@ export class HomePageComponent {
   constructor(private artworksService: ArtworksService) {}
 
   public ngOnInit(): void {
-    this.loadArtworks();
+    this.loadArtworksPagination();
+    this.loadArtworksList();
   }
 
   public nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.loadArtworks();
+      this.loadArtworksPagination();
     }
   }
 
   public prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.loadArtworks();
+      this.loadArtworksPagination();
     }
   }
 
-  private loadArtworks(): void {
-    this.artworksService.getArtworks(this.currentPage).subscribe({
+  public loadArtworksPagination(page = this.currentPage, cardsCount = 3): void {
+    this.artworksService.getArtworks(page, cardsCount).subscribe({
+      next: (artworks) => {
+        this.artworksPagination = artworks;
+      },
+    });
+  }
+
+  protected loadArtworksList(page = this.currentPage, cardsCount = 9): void {
+    this.artworksService.getArtworks(page, cardsCount).subscribe({
       next: (artworks) => {
         this.artworksList = artworks;
       },

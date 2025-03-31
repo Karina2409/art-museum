@@ -26,7 +26,7 @@
   text-transform: capitalize;
 }
 
-.pagination-container {
+.content-container {
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -62,4 +62,11 @@
 
   width: 100%;
   min-height: 514px;
+}
+
+.artworks-more-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
 }
