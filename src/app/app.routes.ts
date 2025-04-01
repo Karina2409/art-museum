@@ -1,17 +1,19 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from '@pages/home-page/home-page.component';
-import { FavouritePageComponent } from '@pages/favourite-page/favourite-page.component';
 
 export const routes: Routes = [
   {
     path: 'home',
     title: 'Home',
-    component: HomePageComponent,
+    loadComponent: () =>
+      import('@pages/home-page/home-page.component').then((m) => m.HomePageComponent),
   },
   {
     path: 'favourite',
     title: 'Favourite',
-    component: FavouritePageComponent,
+    loadComponent: () =>
+      import('@pages/favourite-page/favourite-page.component').then(
+        (m) => m.FavouritePageComponent,
+      ),
   },
   {
     path: '',
