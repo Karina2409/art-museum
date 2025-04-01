@@ -13,7 +13,7 @@ export class PictureComponent {
   @Input() public isSmallVersion!: boolean;
 
   public ngOnInit(): void {
-    this.artwork.title = this.truncateText(24);
+    this.artwork.title = this.truncateText(23);
   }
 
   public truncateText(maxLength: number): string {

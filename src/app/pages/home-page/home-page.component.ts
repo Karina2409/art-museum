@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PictureComponent } from '@components/picture/picture.component';
 import { Artwork } from '@models/artwork.model';
-import { ArtworksService } from '@services/artworks.service';
+import { ArtworksService } from '@services/artworks/artworks.service';
 import { SearchBarComponent } from '@components/search-bar';
 
 @Component({
