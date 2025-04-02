@@ -23,7 +23,7 @@
     </div>
   </div>
 } @else {
-  <div class="picture-small">
+  <div class="picture-small" (click)="navigateToArtworkInfo(artwork.id)">
     <div class="small-image-container">
       <img src="{{ artwork.image_url }}" alt="img" class="small-image" />
     </div>

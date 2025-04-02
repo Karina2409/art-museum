@@ -16,6 +16,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'artwork/:artworkId',
+    title: 'Artwork',
+    loadComponent: () =>
+      import('@pages/favourite-page/favourite-page.component').then(
+        (m) => m.FavouritePageComponent,
+      ),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

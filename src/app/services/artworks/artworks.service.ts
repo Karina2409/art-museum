@@ -28,4 +28,13 @@ export class ArtworksService {
         ),
       );
   }
+
+  public getArtworkById(id: number): Observable<{ data: Artwork }> {
+    const params = new HttpParams().set(
+      'fields',
+      'id,title,date_display,image_id,is_public_domain,dimensions,credit_line,department_title,artist_title',
+    );
+
+    return this.http.get<{ data: Artwork }>(`${this.apiUrl}/${id}`, { params }).pipe();
+  }
 }
