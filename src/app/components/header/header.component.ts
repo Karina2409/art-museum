@@ -1,10 +1,10 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { NgIf, NgOptimizedImage } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [NgOptimizedImage, RouterLink, NgIf],
+  imports: [RouterLink, NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   standalone: true,

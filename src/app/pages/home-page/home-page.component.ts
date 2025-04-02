@@ -15,7 +15,7 @@ export class HomePageComponent {
   public artworksPagination: Artwork[] = [];
   public artworksList: Artwork[] = [];
   public currentPage: number = 1;
-  public totalPages: number = 10;
+  public totalPages: number = 100;
 
   constructor(private artworksService: ArtworksService) {}
 
@@ -41,7 +41,7 @@ export class HomePageComponent {
   public loadArtworksPagination(page = this.currentPage, cardsCount = 3): void {
     this.artworksService.getArtworks(page, cardsCount).subscribe({
       next: (artworks) => {
-        this.artworksPagination = artworks;
+        this.artworksPagination.push(...artworks);
       },
     });
   }
