@@ -24,6 +24,11 @@ export class HomePageComponent {
   public ngOnInit(): void {
     this.loadArtworksPagination();
     this.loadArtworksList();
+    this.artworksService.getTotalPages().subscribe({
+      next: (total) => {
+        this.totalPages = total;
+      },
+    });
   }
 
   public nextPages(): void {

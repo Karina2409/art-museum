@@ -44,4 +44,12 @@ export class ArtworksService {
         })),
       );
   }
+
+  public getTotalPages(): Observable<number> {
+    const params = new HttpParams().set('limit', '0');
+
+    return this.http
+      .get<{ pagination: { total_pages: string } }>(this.apiUrl, { params })
+      .pipe(map((response) => +response.pagination.total_pages));
+  }
 }
