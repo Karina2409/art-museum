@@ -38,7 +38,7 @@
       >
         {{ page }}
       </button>
-      <button *ngIf="currentPage < totalPages" (click)="nextPages()" class="pagination-arrow">
+      <button *ngIf="currentPage + 4 <= totalPages" (click)="nextPages()" class="pagination-arrow">
         <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
