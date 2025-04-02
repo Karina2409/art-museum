@@ -1,11 +1,15 @@
 <div class="wrapper">
   <section class="artwork-info-container">
-    <img src="{{ artwork?.image_url }}" alt="{{ artwork?.title }}" class="artwork-image" />
+    <div class="image-container">
+      <img src="{{ artwork?.image_url }}" alt="{{ artwork?.title }}" class="artwork-image" />
+    </div>
     <div class="artwork-info">
-      <div class="artwork-info">
+      <div class="image-info">
         <h1 class="heading">{{ artwork?.title }}</h1>
-        <h2 class="author-name">{{ artwork?.artist_title }}</h2>
-        <p class="dates">{{ artwork?.date_display }}</p>
+        <div class="author-info">
+          <h2 class="author-name">{{ artwork?.artist_title }}</h2>
+          <p class="dates">{{ artwork?.date_display }}</p>
+        </div>
       </div>
       <div class="overview-container">
         <h2 class="heading">Overview</h2>
