@@ -70,3 +70,39 @@
   gap: 16px;
   width: 100%;
 }
+
+/* PAGINATION */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination-arrow {
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-button {
+  border: none;
+  background: none;
+  font-family: var(--second-family);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 133%;
+  color: #393939;
+  padding: 3px 10px;
+}
+
+.pagination-button.active {
+  background-color: #f17900;
+  border-radius: 4px;
+  font-weight: 600;
+  line-height: 128%;
+  color: #fff;
+}
