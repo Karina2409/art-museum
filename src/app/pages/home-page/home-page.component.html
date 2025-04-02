@@ -1,1 +1,36 @@
-<p>home-page works!</p>
+<main class="main">
+  <section class="search-section">
+    <h1 class="main-heading">
+      let's find some
+      <span style="color: #f17900">art</span>
+      here!
+    </h1>
+
+    <app-search-bar></app-search-bar>
+  </section>
+
+  <section class="content-container">
+    <div class="section-heading">
+      <h3>Topics for you</h3>
+      <h2>Our special gallery</h2>
+    </div>
+    <div class="artworks-list">
+      @for (artwork of artworksPagination; track $index) {
+        <app-picture [artwork]="artwork" [isSmallVersion]="false"></app-picture>
+      }
+    </div>
+    <div class="pagination-container"></div>
+  </section>
+
+  <section class="content-container">
+    <div class="section-heading">
+      <h3>Here some more</h3>
+      <h2>Other works for you</h2>
+    </div>
+    <div class="artworks-more-list">
+      @for (artwork of artworksList; track $index) {
+        <app-picture [artwork]="artwork" [isSmallVersion]="true"></app-picture>
+      }
+    </div>
+  </section>
+</main>
