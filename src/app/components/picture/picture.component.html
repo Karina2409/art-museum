@@ -1,9 +1,9 @@
 @if (!isSmallVersion) {
   <div class="picture">
-    <div class="image-container">
+    <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
       <img src="{{ artwork.image_url }}" alt="img" class="image" />
     </div>
-    <div class="picture-info-container">
+    <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">
       <div class="picture-info">
         <div class="artist-info">
           <p class="picture-title">{{ artwork.title }}</p>
