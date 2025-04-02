@@ -1,0 +1,35 @@
+<div class="wrapper">
+  <section class="artwork-info-container">
+    <div class="image-container">
+      <img src="{{ artwork?.image_url }}" alt="{{ artwork?.title }}" class="artwork-image" />
+    </div>
+    <div class="artwork-info">
+      <div class="image-info">
+        <h1 class="heading">{{ artwork?.title }}</h1>
+        <div class="author-info">
+          <h2 class="author-name">{{ artwork?.artist_title }}</h2>
+          <p class="dates">{{ artwork?.date_display }}</p>
+        </div>
+      </div>
+      <div class="overview-container">
+        <h2 class="heading">Overview</h2>
+        <div class="overview-info">
+          <div class="overview-info__line"><span>Artist nacionality:</span></div>
+          <div class="overview-info__line">
+            <span>Dimensions: Sheet:</span>
+            {{ artwork?.dimensions }}
+          </div>
+          <div class="overview-info__line">
+            <span>Credit Line:</span>
+            {{ artwork?.credit_line }}
+          </div>
+          <div class="overview-info__line">
+            <span>Repository:</span>
+            {{ artwork?.department_title }}
+          </div>
+          <div class="overview-info__line">{{ artwork?.is_public_domain ? 'Public' : 'Private' }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

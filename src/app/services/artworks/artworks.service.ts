@@ -28,4 +28,20 @@ export class ArtworksService {
         ),
       );
   }
+
+  public getArtworkById(id: number): Observable<Artwork> {
+    const params = new HttpParams().set(
+      'fields',
+      'id,title,date_display,image_id,is_public_domain,dimensions,credit_line,department_title,artist_title',
+    );
+
+    return this.http
+      .get<{ data: Artwork; config: { iiif_url: string } }>(`${this.apiUrl}/${id}`, { params })
+      .pipe(
+        map((response) => ({
+          ...response.data,
+          image_url: `${response.config.iiif_url}/${response.data.image_id}/full/843,/0/default.jpg`,
+        })),
+      );
+  }
 }

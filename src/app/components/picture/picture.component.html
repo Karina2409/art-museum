@@ -1,7 +1,9 @@
 @if (!isSmallVersion) {
   <div class="picture">
-    <img src="{{ artwork.image_url }}" alt="img" class="image" />
-    <div class="picture-info-container">
+    <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
+      <img src="{{ artwork.image_url }}" alt="img" class="image" />
+    </div>
+    <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">
       <div class="picture-info">
         <div class="artist-info">
           <p class="picture-title">{{ artwork.title }}</p>
@@ -23,9 +25,9 @@
     </div>
   </div>
 } @else {
-  <div class="picture-small">
+  <div class="picture-small" (click)="navigateToArtworkInfo(artwork.id)">
     <div class="small-image-container">
-      <img src="{{ artwork.image_url }}" alt="img" class="small-image" />
+      <img src="{{ artwork.image_url }}" alt="img" class="image" />
     </div>
     <div class="picture-info">
       <div class="artist-info">

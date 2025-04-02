@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Artwork } from '@models/artwork.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-picture',
@@ -12,15 +13,9 @@ export class PictureComponent {
   @Input() public artwork!: Artwork;
   @Input() public isSmallVersion!: boolean;
 
-  public ngOnInit(): void {
-    this.artwork.title = this.truncateText(23);
-  }
+  constructor(private router: Router) {}
 
-  public truncateText(maxLength: number): string {
-    let element = this.artwork.title;
-    if (element.length > maxLength) {
-      element = element.slice(0, maxLength) + '...';
-    }
-    return element;
+  public navigateToArtworkInfo(id: number): void {
+    this.router.navigate([`/artwork/${id}`]);
   }
 }
