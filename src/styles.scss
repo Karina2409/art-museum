@@ -1,6 +1,14 @@
 /* Importing Bootstrap SCSS file. */
-@use 'bootstrap/scss/bootstrap';
 @use 'bootstrap-icons/font/bootstrap-icons.css';
+
+@import 'src/app/components/footer/footer.component.scss';
+@import 'src/app/components/header/header.component.scss';
+@import 'src/app/components/picture/picture.component.scss';
+@import 'src/app/components/search-bar/search-bar.component.scss';
+@import 'src/app/pages/artwork-info-page/artwork-info-page.component.scss';
+@import 'src/app/pages/favorite-page/favorite-page.component.scss';
+@import 'src/app/pages/home-page/home-page.component.scss';
+@import 'src/app/app.component.scss';
 
 @font-face {
   font-family: 'Lexend Deca';

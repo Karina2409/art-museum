@@ -11,7 +11,8 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "ng build --configuration production --base-href https://github.com/Karina2409/art-museum && cp docs/browser/* docs/ && rm -rf docs/browser"
   },
   "private": true,
   "dependencies": {
