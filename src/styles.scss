@@ -1,3 +1,7 @@
+/* Importing Bootstrap SCSS file. */
+@use 'bootstrap/scss/bootstrap';
+@use 'bootstrap-icons/font/bootstrap-icons.css';
+
 @font-face {
   font-family: 'Lexend Deca';
   font-weight: 100 900;
@@ -26,7 +30,3 @@ a {
   --font-family: 'Inter', sans-serif;
   --second-family: 'Lexend Deca', sans-serif;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons.css';
