@@ -2,12 +2,11 @@
   <div class="picture">
     <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
       <img
-        ngSrc="{{ artwork.image_url }}"
+        src="{{ artwork.image_url }}"
         alt="img"
         class="image"
         [class.default]="isDefaultImage"
         (error)="onImageError($event)"
-        fill
       />
     </div>
     <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">

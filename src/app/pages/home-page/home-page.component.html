@@ -15,7 +15,7 @@
     </div>
     <div class="artworks-list">
       @for (artwork of artworksPagination(); track artwork.id) {
-        <app-picture [artwork]="artwork" [isSmallVersion]="false"></app-picture>
+        <app-picture [artwork]="artwork" [isSmallVersion]="false" class="app-picture"></app-picture>
       }
     </div>
     <div class="pagination-container">
