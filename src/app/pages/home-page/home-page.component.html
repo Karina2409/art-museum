@@ -14,7 +14,7 @@
       <h2>Our special gallery</h2>
     </div>
     <div class="artworks-list">
-      @for (artwork of artworksPagination; track $index) {
+      @for (artwork of artworksPagination; track artwork.id) {
         <app-picture [artwork]="artwork" [isSmallVersion]="false"></app-picture>
       }
     </div>
