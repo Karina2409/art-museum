@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Artwork } from '@models/artwork.model';
 import { Router } from '@angular/router';
+import { FavoritesService } from '@services/favorites/favorites.service';
 
 @Component({
   selector: 'app-picture',
@@ -13,9 +14,23 @@ export class PictureComponent {
   @Input() public artwork!: Artwork;
   @Input() public isSmallVersion!: boolean;
 
+  public isFavorite = false;
   protected isDefaultImage = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private favoritesService: FavoritesService,
+  ) {}
+
+  public ngOnInit(): void {
+    this.isFavorite = this.favoritesService.isFavorite(this.artwork.id);
+  }
+
+  public toggleFavorite(event: Event): void {
+    event.stopPropagation();
+    this.favoritesService.toggleFavorite(this.artwork.id);
+    this.isFavorite = !this.isFavorite;
+  }
 
   public navigateToArtworkInfo(id: number): void {
     this.router.navigate([`/artwork/${id}`]);
