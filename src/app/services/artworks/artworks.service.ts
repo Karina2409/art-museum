@@ -13,7 +13,7 @@ export class ArtworksService {
 
   public getArtworks(page: number = 1, limit: number = 3): Observable<Artwork[]> {
     const params = new HttpParams()
-      .set('fields', 'id,title,artist_title,image_id,is_public_domain')
+      .set('fields', 'id,title,artist_title,image_id,is_on_view')
       .set('page', page.toString())
       .set('limit', limit.toString());
 
@@ -32,7 +32,7 @@ export class ArtworksService {
   public getArtworkById(id: number): Observable<Artwork> {
     const params = new HttpParams().set(
       'fields',
-      'id,title,date_display,image_id,is_public_domain,dimensions,credit_line,department_title,artist_title',
+      'id,title,date_display,image_id,is_on_view,dimensions,credit_line,department_title,artist_title',
     );
 
     return this.http
@@ -59,7 +59,7 @@ export class ArtworksService {
     limit: number = 3,
   ): Observable<{ artworks: Artwork[]; total_page: number }> {
     const params = new HttpParams()
-      .set('fields', 'id,title,artist_title,image_id,is_public_domain')
+      .set('fields', 'id,title,artist_title,image_id,is_on_view')
       .set('q', query)
       .set('page', page.toString())
       .set('limit', limit.toString());

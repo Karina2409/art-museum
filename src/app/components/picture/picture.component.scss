@@ -19,6 +19,13 @@
   object-position: center;
 }
 
+.image.default {
+  padding: 10px 30px;
+  object-fit: contain;
+  border: solid 3px #4a2900;
+  border-radius: 15px;
+}
+
 .picture-info-container {
   position: absolute;
   bottom: -70px;
@@ -103,6 +110,10 @@
   border: 1px solid #f0f1f1;
 
   background-color: #fff;
+}
+
+.image-small-default {
+  padding: 5px;
 }
 
 .small-image-container {

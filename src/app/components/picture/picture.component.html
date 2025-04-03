@@ -1,7 +1,13 @@
 @if (!isSmallVersion) {
   <div class="picture">
     <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
-      <img src="{{ artwork.image_url }}" alt="img" class="image" />
+      <img
+        src="{{ artwork.image_url }}"
+        alt="img"
+        class="image"
+        [class.default]="isDefaultImage"
+        (error)="onImageError($event)"
+      />
     </div>
     <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">
       <div class="picture-info">
@@ -9,7 +15,7 @@
           <p class="picture-title">{{ artwork.title }}</p>
           <p class="artist-name">{{ artwork.artist_title }}</p>
         </div>
-        <p class="is-public-domain">{{ artwork.is_public_domain ? 'Public' : 'Private' }}</p>
+        <p class="is-public-domain">{{ artwork.is_on_view ? 'Public' : 'Private' }}</p>
       </div>
       <div class="favourite-icon">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,14 +33,20 @@
 } @else {
   <div class="picture-small" (click)="navigateToArtworkInfo(artwork.id)">
     <div class="small-image-container">
-      <img src="{{ artwork.image_url }}" alt="img" class="image" />
+      <img
+        src="{{ artwork.image_url }}"
+        alt="img"
+        class="image"
+        [class.image-small-default]="isDefaultImage"
+        (error)="onImageError($event)"
+      />
     </div>
     <div class="picture-info">
       <div class="artist-info">
         <p class="picture-title">{{ artwork.title }}</p>
         <p class="artist-name">{{ artwork.artist_title }}</p>
       </div>
-      <p class="is-public-domain">{{ artwork.is_public_domain ? 'Public' : 'Private' }}</p>
+      <p class="is-public-domain">{{ artwork.is_on_view ? 'Public' : 'Private' }}</p>
     </div>
     <div class="favourite-icon">
       <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">

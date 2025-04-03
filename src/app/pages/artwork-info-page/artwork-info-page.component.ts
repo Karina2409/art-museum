@@ -3,16 +3,18 @@ import { Artwork } from '@models/artwork.model';
 import { ArtworksService } from '@services/artworks/artworks.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-artwork-info-page',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './artwork-info-page.component.html',
   standalone: true,
   styleUrl: './artwork-info-page.component.scss',
 })
 export class ArtworkInfoPageComponent {
-  public artwork: Artwork | undefined;
+  public artwork!: Artwork;
+  protected isDefaultImage = false;
   private artworkId: number = 0;
   private subscription: Subscription | undefined;
 
@@ -32,6 +34,13 @@ export class ArtworkInfoPageComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  protected onImageError(event: Event): void {
+    if (!(event.target instanceof HTMLImageElement)) return;
+    const target: HTMLImageElement = event.target;
+    target.src = 'default-image.png';
+    this.isDefaultImage = true;
   }
 
   private getArtworkDetails(): void {

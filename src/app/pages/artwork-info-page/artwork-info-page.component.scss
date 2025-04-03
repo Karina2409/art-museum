@@ -31,6 +31,13 @@
   object-position: center;
 }
 
+.artwork-image.default {
+  padding: 10px 30px;
+  object-fit: contain;
+  border: solid 3px #4a2900;
+  border-radius: 15px;
+}
+
 .artwork-info {
   display: flex;
   flex-direction: column;

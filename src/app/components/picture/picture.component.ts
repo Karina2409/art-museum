@@ -13,9 +13,18 @@ export class PictureComponent {
   @Input() public artwork!: Artwork;
   @Input() public isSmallVersion!: boolean;
 
+  protected isDefaultImage = false;
+
   constructor(private router: Router) {}
 
   public navigateToArtworkInfo(id: number): void {
     this.router.navigate([`/artwork/${id}`]);
+  }
+
+  public onImageError(event: Event): void {
+    if (!(event.target instanceof HTMLImageElement)) return;
+    const target: HTMLImageElement = event.target;
+    target.src = 'default-image.png';
+    this.isDefaultImage = true;
   }
 }
