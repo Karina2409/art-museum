@@ -18,6 +18,7 @@ export class HomePageComponent {
   public currentPage: number = 1;
   public totalPages: number = 100;
   public visiblePageCount: number = 4;
+  public searchQuery: string = '';
 
   constructor(private artworksService: ArtworksService) {}
 
@@ -29,6 +30,12 @@ export class HomePageComponent {
         this.totalPages = total;
       },
     });
+  }
+
+  public onSearch(query: string): void {
+    this.searchQuery = query;
+    this.currentPage = 1;
+    this.loadArtworksPagination();
   }
 
   public nextPages(): void {
@@ -45,10 +52,11 @@ export class HomePageComponent {
     }
   }
 
-  public loadArtworksPagination(page = this.currentPage, cardsCount = 3): void {
-    this.artworksService.getArtworks(page, cardsCount).subscribe({
-      next: (artworks) => {
+  public loadArtworksPagination(page = this.currentPage): void {
+    this.artworksService.searchArtworks(this.searchQuery, page).subscribe({
+      next: ({ artworks, total_page }) => {
         this.artworksPagination = artworks;
+        this.totalPages = total_page;
       },
     });
   }
