@@ -35,8 +35,8 @@
     </div>
     <div class="picture-info">
       <div class="artist-info">
-        <p class="picture-title">{{ artwork.title ?? 'Unknown' }}</p>
-        <p class="artist-name">{{ artwork.artist_title ?? 'Unknown' }}</p>
+        <p class="picture-title">{{ artwork.title || 'Unknown' }}</p>
+        <p class="artist-name">{{ artwork.artist_title || 'Unknown' }}</p>
       </div>
       <p class="is-public-domain">{{ artwork.is_on_view ? 'Public' : 'Private' }}</p>
     </div>

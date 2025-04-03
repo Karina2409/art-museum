@@ -2,11 +2,10 @@ import { Component, effect, inject, Input, signal, WritableSignal } from '@angul
 import { Artwork } from '@models/artwork.model';
 import { Router } from '@angular/router';
 import { FavoritesService } from '@services/favorites/favorites.service';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-picture',
-  imports: [NgOptimizedImage],
+  imports: [],
   templateUrl: './picture.component.html',
   standalone: true,
   styleUrl: './picture.component.scss',
