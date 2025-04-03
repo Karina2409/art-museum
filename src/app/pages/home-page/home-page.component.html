@@ -14,12 +14,12 @@
       <h2>Our special gallery</h2>
     </div>
     <div class="artworks-list">
-      @for (artwork of artworksPagination; track $index) {
-        <app-picture [artwork]="artwork" [isSmallVersion]="false"></app-picture>
+      @for (artwork of artworksPagination(); track artwork.id) {
+        <app-picture [artwork]="artwork" [isSmallVersion]="false" class="app-picture"></app-picture>
       }
     </div>
     <div class="pagination-container">
-      <button *ngIf="currentPage > visiblePageCount" (click)="prevPages()" class="pagination-arrow">
+      <button *ngIf="currentPage() > visiblePageCount" (click)="prevPages()" class="pagination-arrow">
         <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
@@ -32,12 +32,12 @@
       <button
         *ngFor="let page of getVisiblePages()"
         (click)="goToPage(page)"
-        [class.active]="page === currentPage"
+        [class.active]="page === currentPage()"
         class="pagination-button"
       >
         {{ page }}
       </button>
-      <button *ngIf="currentPage + 4 <= totalPages" (click)="nextPages()" class="pagination-arrow">
+      <button *ngIf="currentPage() + 4 <= totalPages()" (click)="nextPages()" class="pagination-arrow">
         <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
@@ -56,7 +56,7 @@
       <h2>Other works for you</h2>
     </div>
     <div class="artworks-more-list">
-      @for (artwork of artworksList; track $index) {
+      @for (artwork of artworksList(); track $index) {
         <app-picture [artwork]="artwork" [isSmallVersion]="true"></app-picture>
       }
     </div>

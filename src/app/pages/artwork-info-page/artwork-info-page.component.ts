@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
 import { Artwork } from '@models/artwork.model';
 import { ArtworksService } from '@services/artworks/artworks.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -13,27 +12,25 @@ import { NgIf } from '@angular/common';
   styleUrl: './artwork-info-page.component.scss',
 })
 export class ArtworkInfoPageComponent {
-  public artwork!: Artwork;
+  public artwork = signal<Artwork | null>(null);
   protected isDefaultImage = false;
-  private artworkId: number = 0;
-  private subscription: Subscription | undefined;
 
-  constructor(
-    private artworksService: ArtworksService,
-    private activateRoute: ActivatedRoute,
-  ) {}
+  private artworkId: Signal<number> = computed(() =>
+    Number(this.activateRoute.snapshot.paramMap.get('artworkId')),
+  );
 
-  public ngOnInit(): void {
-    this.subscription = this.activateRoute.params.subscribe((params) => {
-      this.artworkId = params['artworkId'];
-      this.getArtworkDetails();
+  private artworksService = inject(ArtworksService);
+  private activateRoute = inject(ActivatedRoute);
+
+  constructor() {
+    effect(() => {
+      const id = this.artworkId();
+      if (id) {
+        this.artworksService.getArtworkById(id).subscribe({
+          next: (artwork) => this.artwork.set(artwork),
+        });
+      }
     });
-  }
-
-  public ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 
   protected onImageError(event: Event): void {
@@ -41,13 +38,5 @@ export class ArtworkInfoPageComponent {
     const target: HTMLImageElement = event.target;
     target.src = 'default-image.png';
     this.isDefaultImage = true;
-  }
-
-  private getArtworkDetails(): void {
-    this.artworksService.getArtworkById(this.artworkId).subscribe({
-      next: (artwork) => {
-        this.artwork = artwork;
-      },
-    });
   }
 }

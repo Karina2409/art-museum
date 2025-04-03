@@ -11,9 +11,7 @@ export const routes: Routes = [
     path: 'favourite',
     title: 'Favourite',
     loadComponent: () =>
-      import('@pages/favourite-page/favourite-page.component').then(
-        (m) => m.FavouritePageComponent,
-      ),
+      import('@pages/favorite-page/favorite-page.component').then((m) => m.FavouritePageComponent),
   },
   {
     path: 'artwork/:artworkId',
