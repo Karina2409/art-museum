@@ -1,0 +1,47 @@
+@if (!isSmallVersion) {
+  <div class="picture">
+    <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
+      <img
+        src="{{ artwork.image_url }}"
+        alt="img"
+        class="image"
+        [class.default]="isDefaultImage"
+        (error)="onImageError($event)"
+      />
+    </div>
+    <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">
+      <div class="picture-info">
+        <div class="artist-info">
+          <p class="picture-title">{{ artwork.title ?? 'Unknown' }}</p>
+          <p class="artist-name">{{ artwork.artist_title ?? 'Unknown' }}</p>
+        </div>
+        <p class="is-public-domain">{{ artwork.is_on_view ? 'Public' : 'Private' }}</p>
+      </div>
+      <div class="favourite-icon" (click)="toggleFavorite($event)" [class.favourite-active]="isFavorite()">
+        <img src="bookmark.svg" alt="bookmark" class="bookmark" />
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="picture-small" (click)="navigateToArtworkInfo(artwork.id)">
+    <div class="small-image-container">
+      <img
+        src="{{ artwork.image_url }}"
+        alt="img"
+        class="image"
+        [class.image-small-default]="isDefaultImage"
+        (error)="onImageError($event)"
+      />
+    </div>
+    <div class="picture-info">
+      <div class="artist-info">
+        <p class="picture-title">{{ artwork.title || 'Unknown' }}</p>
+        <p class="artist-name">{{ artwork.artist_title || 'Unknown' }}</p>
+      </div>
+      <p class="is-public-domain">{{ artwork.is_on_view ? 'Public' : 'Private' }}</p>
+    </div>
+    <div class="favourite-icon" (click)="toggleFavorite($event)" [class.favourite-active]="isFavorite()">
+      <img src="bookmark.svg" alt="bookmark" class="bookmark" />
+    </div>
+  </div>
+}

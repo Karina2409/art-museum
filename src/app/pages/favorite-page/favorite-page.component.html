@@ -1,0 +1,20 @@
+<div class="wrapper">
+  <section class="heading-section">
+    <h1 class="main-heading">
+      Here are your
+      <img src="bookmark.svg" alt="Bookmark" class="bookmark" />
+      <span style="color: #f17900">favorites</span>
+    </h1>
+  </section>
+  <section class="favorite-list-section">
+    <div class="section-heading">
+      <h3>Saved by you</h3>
+      <h2>Your favorites list</h2>
+    </div>
+    <div class="favorite-list">
+      @for (artwork of favoriteArtworks(); track artwork.id) {
+        <app-picture [artwork]="artwork" [isSmallVersion]="true"></app-picture>
+      }
+    </div>
+  </section>
+</div>

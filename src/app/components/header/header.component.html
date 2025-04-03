@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="header-container">
+    <div class="logo">
+      <img src="museum-logo.svg" alt="Museum Logo" />
+    </div>
+    <nav class="nav">
+      <a *ngIf="!isHomePage()" routerLink="home" class="nav-link">
+        <img src="home.svg" alt="Home" />
+        Home
+      </a>
+      <a routerLink="favourite" class="nav-link">
+        <img src="bookmark.svg" alt="Favorites" />
+        Your favorites
+      </a>
+    </nav>
+  </div>
+</header>

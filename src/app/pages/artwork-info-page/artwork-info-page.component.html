@@ -1,0 +1,41 @@
+<div class="wrapper" *ngIf="artwork() as art">
+  <section class="artwork-info-container">
+    <div class="image-container">
+      <img
+        src="{{ art.image_url }}"
+        alt="{{ art.title }}"
+        class="artwork-image"
+        [class.default]="isDefaultImage"
+        (error)="onImageError($event)"
+      />
+    </div>
+    <div class="artwork-info">
+      <div class="image-info">
+        <h1 class="heading">{{ art.title }}</h1>
+        <div class="author-info">
+          <h2 class="author-name">{{ art.artist_title }}</h2>
+          <p class="dates">{{ art.date_display }}</p>
+        </div>
+      </div>
+      <div class="overview-container">
+        <h2 class="heading">Overview</h2>
+        <div class="overview-info">
+          <div class="overview-info__line"><span>Artist nacionality:</span></div>
+          <div class="overview-info__line">
+            <span>Dimensions: Sheet:</span>
+            {{ art.dimensions }}
+          </div>
+          <div class="overview-info__line">
+            <span>Credit Line:</span>
+            {{ art.credit_line }}
+          </div>
+          <div class="overview-info__line">
+            <span>Repository:</span>
+            {{ art.department_title }}
+          </div>
+          <div class="overview-info__line">{{ art.is_on_view ? 'Public' : 'Private' }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

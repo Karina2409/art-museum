@@ -1,0 +1,31 @@
+.header {
+  background: linear-gradient(90deg, #343333 16.73%, #484848 58.63%, #282828 98.63%);
+  padding: 0 10px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.nav {
+  display: flex;
+  column-gap: 24px;
+}
+
+.nav-link {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  text-decoration: none;
+}
