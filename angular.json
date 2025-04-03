@@ -18,8 +18,8 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "docs",
-            "baseHref": "https://github.com/Karina2409/art-museum/",
-            "deployUrl": "https://github.com/Karina2409/art-museum/",
+            "baseHref": "/art-museum/",
+            "deployUrl": "/art-museum/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
