@@ -108,12 +108,16 @@
   gap: 16px;
   align-items: center;
 
-  width: 416px;
-  height: 130px;
+  width: 100%;
+  height: auto;
   padding: 16px;
   border: 1px solid #f0f1f1;
-
   background-color: #fff;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 }
 
 .image-small-default {
@@ -128,4 +132,11 @@
 
   width: 80px;
   height: 80px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }

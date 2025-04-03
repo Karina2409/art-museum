@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { PictureComponent } from '@components/picture/picture.component';
 import { Artwork } from '@models/artwork.model';
 import { ArtworksService } from '@services/artworks/artworks.service';
@@ -13,73 +13,73 @@ import { NgForOf, NgIf } from '@angular/common';
   imports: [PictureComponent, SearchBarComponent, NgIf, NgForOf],
 })
 export class HomePageComponent {
-  public artworksPagination: Artwork[] = [];
-  public artworksList: Artwork[] = [];
-  public currentPage: number = 1;
-  public totalPages: number = 100;
+  public artworksPagination = signal<Artwork[]>([]);
+  public artworksList = signal<Artwork[]>([]);
+  public currentPage = signal(1);
+  public totalPages = signal(100);
   public visiblePageCount: number = 4;
-  public searchQuery: string = '';
+  public searchQuery = signal('');
 
-  constructor(private artworksService: ArtworksService) {}
+  private artworksService = inject(ArtworksService);
 
-  public ngOnInit(): void {
-    this.loadArtworksPagination();
-    this.loadArtworksList();
-    this.artworksService.getTotalPages().subscribe({
-      next: (total) => {
-        this.totalPages = total;
-      },
+  constructor() {
+    effect(() => {
+      this.artworksService.getTotalPages().subscribe({
+        next: (total_pages) => this.totalPages.set(total_pages),
+      });
+    });
+
+    effect(() => {
+      this.loadArtworksPagination();
+    });
+
+    effect(() => {
+      this.loadArtworksList();
     });
   }
 
   public onSearch(query: string): void {
-    this.searchQuery = query;
-    this.currentPage = 1;
-    this.loadArtworksPagination();
+    this.searchQuery.set(query);
+    this.currentPage.set(1);
   }
 
   public nextPages(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage += this.visiblePageCount;
-      this.loadArtworksPagination();
+    if (this.currentPage() < this.totalPages()) {
+      this.currentPage.update((page) => page + this.visiblePageCount);
     }
   }
 
   public prevPages(): void {
-    if (this.currentPage > 1) {
-      this.currentPage -= this.visiblePageCount;
-      this.loadArtworksPagination();
+    if (this.currentPage() > 1) {
+      this.currentPage.update((page) => page - this.visiblePageCount);
     }
-  }
-
-  public loadArtworksPagination(page = this.currentPage): void {
-    this.artworksService.searchArtworks(this.searchQuery, page).subscribe({
-      next: ({ artworks, total_page }) => {
-        this.artworksPagination = artworks;
-        this.totalPages = total_page;
-      },
-    });
   }
 
   public getVisiblePages(): number[] {
     const start =
-      Math.floor((this.currentPage - 1) / this.visiblePageCount) * this.visiblePageCount + 1;
-    const end = Math.min(start + this.visiblePageCount - 1, this.totalPages);
+      Math.floor((this.currentPage() - 1) / this.visiblePageCount) * this.visiblePageCount + 1;
+    const end = Math.min(start + this.visiblePageCount - 1, this.totalPages());
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
   public goToPage(page: number): void {
-    if (page !== this.currentPage) {
-      this.currentPage = page;
-      this.loadArtworksPagination();
+    if (page !== this.currentPage()) {
+      this.currentPage.set(page);
     }
   }
 
-  protected loadArtworksList(page = this.currentPage, cardsCount = 9): void {
-    this.artworksService.getArtworks(page, cardsCount).subscribe({
-      next: (artworks) => {
-        this.artworksList = artworks;
+  private loadArtworksPagination(): void {
+    this.artworksService.searchArtworks(this.searchQuery(), this.currentPage()).subscribe({
+      next: ({ artworks, total_page }) => {
+        this.artworksPagination.set(artworks);
+        this.totalPages.set(total_page);
       },
+    });
+  }
+
+  private loadArtworksList(): void {
+    this.artworksService.getArtworks(1, 9).subscribe({
+      next: (artworks) => this.artworksList.set(artworks),
     });
   }
 }

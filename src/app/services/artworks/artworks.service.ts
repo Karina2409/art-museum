@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Artwork } from '@models/artwork.model';
 import { map, Observable } from 'rxjs';
@@ -7,9 +7,10 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ArtworksService {
-  private apiUrl = 'https://api.artic.edu/api/v1/artworks';
+  public totalPages = signal<number>(100);
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+  private apiUrl = 'https://api.artic.edu/api/v1/artworks';
 
   public getArtworks(page: number = 1, limit: number = 3): Observable<Artwork[]> {
     const params = new HttpParams()
@@ -48,9 +49,13 @@ export class ArtworksService {
   public getTotalPages(): Observable<number> {
     const params = new HttpParams().set('limit', '0');
 
-    return this.http
-      .get<{ pagination: { total_pages: string } }>(this.apiUrl, { params })
-      .pipe(map((response) => +response.pagination.total_pages));
+    return this.http.get<{ pagination: { total_pages: string } }>(this.apiUrl, { params }).pipe(
+      map((response) => {
+        const total = +response.pagination.total_pages;
+        this.totalPages.set(total);
+        return total;
+      }),
+    );
   }
 
   public searchArtworks(
@@ -78,6 +83,7 @@ export class ArtworksService {
           }));
 
           const total_page = +response.pagination.total_pages;
+          this.totalPages.set(total_page);
 
           return { artworks, total_page };
         }),

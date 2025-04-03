@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoritesService {
   private storageKey = 'favoriteArtworks';
-  private favorites$ = new BehaviorSubject<number[]>(this.getAllFavorites());
+  private favorites = signal<number[]>(this.getAllFavorites());
 
   constructor() {}
 
@@ -26,20 +25,19 @@ export class FavoritesService {
     return this.getAllFavorites().includes(artworkId);
   }
 
-  public getFavoritesObservable(): Observable<number[]> {
-    return this.favorites$.asObservable();
+  public getFavorites(): WritableSignal<number[]> {
+    return this.favorites;
   }
 
   private addToStorage(artworkId: number): void {
-    const favorites = this.getAllFavorites();
-    favorites.push(artworkId);
-    localStorage.setItem(this.storageKey, JSON.stringify(favorites));
-    this.favorites$.next(favorites);
+    const updatedFavorites = [...this.favorites(), artworkId];
+    localStorage.setItem(this.storageKey, JSON.stringify(updatedFavorites));
+    this.favorites.set(updatedFavorites);
   }
 
   private removeFromStorage(artworkId: number): void {
-    const favorites = this.getAllFavorites().filter((id) => id !== artworkId);
-    localStorage.setItem(this.storageKey, JSON.stringify(favorites));
-    this.favorites$.next(favorites);
+    const updatedFavorites = this.favorites().filter((id) => id !== artworkId);
+    localStorage.setItem(this.storageKey, JSON.stringify(updatedFavorites));
+    this.favorites.set(updatedFavorites);
   }
 }
