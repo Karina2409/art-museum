@@ -13,6 +13,15 @@
   flex-direction: column;
   gap: 72px;
   align-items: center;
+  width: 100%;
+}
+
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-heading {
