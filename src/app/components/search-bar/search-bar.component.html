@@ -1,1 +1,11 @@
-<p>search-bar works!</p>
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-container">
+  <input
+    type="text"
+    class="form-control search-input"
+    placeholder="Search Art, Artist, Work..."
+    formControlName="searchQuery"
+  />
+  <button type="submit" class="search-btn" [disabled]="searchForm.invalid">
+    <span class="bi bi-search"></span>
+  </button>
+</form>
