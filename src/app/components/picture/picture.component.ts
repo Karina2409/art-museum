@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Artwork } from '@models/artwork.model';
 import { Router } from '@angular/router';
 import { FavoritesService } from '@services/favorites/favorites.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-picture',
@@ -16,6 +17,7 @@ export class PictureComponent {
 
   public isFavorite = false;
   protected isDefaultImage = false;
+  private favoritesSubscription!: Subscription;
 
   constructor(
     private router: Router,
@@ -23,13 +25,15 @@ export class PictureComponent {
   ) {}
 
   public ngOnInit(): void {
-    this.isFavorite = this.favoritesService.isFavorite(this.artwork.id);
+    this.updateFavoriteStatus();
+    this.favoritesSubscription = this.favoritesService.getFavoritesObservable().subscribe(() => {
+      this.updateFavoriteStatus();
+    });
   }
 
   public toggleFavorite(event: Event): void {
     event.stopPropagation();
     this.favoritesService.toggleFavorite(this.artwork.id);
-    this.isFavorite = !this.isFavorite;
   }
 
   public navigateToArtworkInfo(id: number): void {
@@ -41,5 +45,9 @@ export class PictureComponent {
     const target: HTMLImageElement = event.target;
     target.src = 'default-image.png';
     this.isDefaultImage = true;
+  }
+
+  private updateFavoriteStatus(): void {
+    this.isFavorite = this.favoritesService.isFavorite(this.artwork.id);
   }
 }
