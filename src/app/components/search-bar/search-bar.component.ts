@@ -16,7 +16,7 @@ export class SearchBarComponent {
 
   constructor() {
     this.searchForm = new FormGroup({
-      searchQuery: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      searchQuery: new FormControl('', []),
     });
   }
 
@@ -24,7 +24,16 @@ export class SearchBarComponent {
     this.searchForm
       .get('searchQuery')
       ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((query) => {
+      .subscribe((query: string) => {
+        query = query.trim();
+        if (query === '') {
+          this.search.emit(query);
+          return;
+        }
+
+        this.searchForm.get('searchQuery')?.setValidators([Validators.minLength(3)]);
+        this.searchForm.get('searchQuery')?.updateValueAndValidity({ emitEvent: false });
+
         if (this.searchForm.valid) {
           this.search.emit(query);
         }
