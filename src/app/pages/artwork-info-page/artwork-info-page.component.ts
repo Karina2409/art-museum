@@ -13,7 +13,6 @@ import { NgIf } from '@angular/common';
 })
 export class ArtworkInfoPageComponent {
   public artwork = signal<Artwork | null>(null);
-  protected isDefaultImage = false;
 
   private artworkId: Signal<number> = computed(() =>
     Number(this.activateRoute.snapshot.paramMap.get('artworkId')),
@@ -33,10 +32,7 @@ export class ArtworkInfoPageComponent {
     });
   }
 
-  protected onImageError(event: Event): void {
-    if (!(event.target instanceof HTMLImageElement)) return;
-    const target: HTMLImageElement = event.target;
-    target.src = 'default-image.png';
-    this.isDefaultImage = true;
+  protected get isDefaultImage(): boolean {
+    return this.artwork()?.image_url.includes('default-image.png') ?? true;
   }
 }
