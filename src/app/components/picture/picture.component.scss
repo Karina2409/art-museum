@@ -125,12 +125,8 @@
   }
 
   &.favourite-active {
-    filter: brightness(1.2);
+    background: rgba(251, 215, 178, 0.3);
   }
-}
-
-.favourite-active {
-  background: rgba(251, 215, 178, 0.3);
 }
 
 .picture-small {
