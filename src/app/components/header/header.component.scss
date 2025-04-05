@@ -3,19 +3,28 @@
   padding: 0 10px;
 }
 
-.header-container {
+.container-fluid {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 32px 0;
+  gap: 16px;
 }
 
-.nav {
-  display: flex;
-  column-gap: 24px;
+.navbar-collapse {
+  flex-grow: unset;
+}
+
+.navbar-toggler {
+  box-shadow: none;
+  color: #e0a449;
+  border: none;
+}
+
+.navbar-nav {
+  column-gap: 32px;
+  row-gap: 10px;
 }
 
 .nav-link {
