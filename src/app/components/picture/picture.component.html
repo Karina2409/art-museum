@@ -1,7 +1,13 @@
 @if (!isSmallVersion) {
   <div class="picture">
     <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
-      <img src="{{ artwork.image_url }}" alt="img" class="image" [class.default]="isDefaultImage" />
+      <img
+        src="{{ artwork.image_url }}"
+        alt="img"
+        class="image"
+        [class.default]="isDefaultImage"
+        (error)="onImageError()"
+      />
     </div>
     <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">
       <div class="picture-info">
@@ -19,7 +25,13 @@
 } @else {
   <div class="picture-small" (click)="navigateToArtworkInfo(artwork.id)">
     <div class="small-image-container">
-      <img src="{{ artwork.image_url }}" alt="img" class="image" [class.image-small-default]="isDefaultImage" />
+      <img
+        src="{{ artwork.image_url }}"
+        alt="img"
+        class="image"
+        [class.image-small-default]="isDefaultImage"
+        (error)="onImageError()"
+      />
     </div>
     <div class="picture-info">
       <div class="artist-info">

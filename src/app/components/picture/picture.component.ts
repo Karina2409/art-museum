@@ -40,4 +40,8 @@ export class PictureComponent {
   public navigateToArtworkInfo(id: number): void {
     this.router.navigate([`/artwork/${id}`]);
   }
+
+  protected onImageError(): void {
+    this.artwork.image_url = 'default-image.png';
+  }
 }

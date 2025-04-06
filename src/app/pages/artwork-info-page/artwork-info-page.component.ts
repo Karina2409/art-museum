@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
+import { Component, computed, effect, inject, Signal } from '@angular/core';
 import { Artwork } from '@models/artwork.model';
 import { ArtworksService } from '@services/artworks/artworks.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './artwork-info-page.component.scss',
 })
 export class ArtworkInfoPageComponent {
-  public artwork = signal<Artwork | null>(null);
+  public artwork: Artwork | null = null;
 
   private artworkId: Signal<number> = computed(() =>
     Number(this.activateRoute.snapshot.paramMap.get('artworkId')),
@@ -26,13 +26,19 @@ export class ArtworkInfoPageComponent {
       const id = this.artworkId();
       if (id) {
         this.artworksService.getArtworkById(id).subscribe({
-          next: (artwork) => this.artwork.set(artwork),
+          next: (artwork) => (this.artwork = artwork),
         });
       }
     });
   }
 
   protected get isDefaultImage(): boolean {
-    return this.artwork()?.image_url.includes('default-image.png') ?? true;
+    return this.artwork?.image_url.includes('default-image.png') ?? true;
+  }
+
+  protected onImageError(): void {
+    if (this.artwork) {
+      this.artwork.image_url = 'default-image.png';
+    }
   }
 }
