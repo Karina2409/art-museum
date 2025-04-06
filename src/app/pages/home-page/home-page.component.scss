@@ -72,7 +72,7 @@
 .artworks-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
-  gap: 54px;
+  gap: 10px;
 
   width: 100%;
   min-height: 514px;
