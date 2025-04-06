@@ -6,7 +6,7 @@
         alt="img"
         class="image"
         [class.default]="isDefaultImage"
-        (error)="onImageError($event)"
+        (error)="onImageError()"
       />
     </div>
     <div class="picture-info-container" (click)="navigateToArtworkInfo(artwork.id)">
@@ -30,7 +30,7 @@
         alt="img"
         class="image"
         [class.image-small-default]="isDefaultImage"
-        (error)="onImageError($event)"
+        (error)="onImageError()"
       />
     </div>
     <div class="picture-info">

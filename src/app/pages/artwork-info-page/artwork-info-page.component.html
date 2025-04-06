@@ -1,4 +1,4 @@
-<div class="wrapper" *ngIf="artwork() as art">
+<div class="wrapper" *ngIf="artwork as art">
   <section class="artwork-info-container">
     <div class="image-container">
       <img
@@ -6,7 +6,7 @@
         alt="{{ art.title }}"
         class="artwork-image"
         [class.default]="isDefaultImage"
-        (error)="onImageError($event)"
+        (error)="onImageError()"
       />
     </div>
     <div class="artwork-info">

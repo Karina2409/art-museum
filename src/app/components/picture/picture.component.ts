@@ -16,8 +16,6 @@ export class PictureComponent {
 
   public isFavorite: WritableSignal<boolean> = signal(false);
 
-  protected isDefaultImage = false;
-
   private router = inject(Router);
   private favoritesService = inject(FavoritesService);
 
@@ -27,6 +25,10 @@ export class PictureComponent {
         this.isFavorite.set(this.favoritesService.isFavorite(this.artwork.id));
       }
     });
+  }
+
+  protected get isDefaultImage(): boolean {
+    return this.artwork?.image_url.includes('default-image.png') ?? true;
   }
 
   public toggleFavorite(event: Event): void {
@@ -39,10 +41,7 @@ export class PictureComponent {
     this.router.navigate([`/artwork/${id}`]);
   }
 
-  public onImageError(event: Event): void {
-    if (!(event.target instanceof HTMLImageElement)) return;
-    const target: HTMLImageElement = event.target;
-    target.src = 'default-image.png';
-    this.isDefaultImage = true;
+  protected onImageError(): void {
+    this.artwork.image_url = 'default-image.png';
   }
 }
