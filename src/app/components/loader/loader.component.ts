@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-loader',
   imports: [],
   template: `
-    <div class="d-flex justify-content-center py-5">
-      <div class="spinner-border text-primary" role="status">
+    <div class="d-flex justify-content-center align-items-center w-100 h-100">
+      <div class="spinner-border text-warning" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
