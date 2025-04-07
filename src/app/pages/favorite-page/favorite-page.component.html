@@ -14,16 +14,12 @@
       <h2>Your favorites list</h2>
     </div>
 
-    <app-loader *ngIf="isLoadingInitialList()"></app-loader>
+    <app-loader *ngIf="isLoadingArtworksList()"></app-loader>
 
-    <div class="favorite-list" *ngIf="!isLoadingInitialList() || favoriteArtworks().length > 0">
+    <div class="favorite-list" *ngIf="!isLoadingArtworksList()">
       @for (artwork of favoriteArtworks(); track artwork.id) {
         <app-picture [artwork]="artwork" [isSmallVersion]="true"></app-picture>
       }
-
-      <div class="loader-wrapper" *ngIf="isLoadingNextChunk()">
-        <app-loader></app-loader>
-      </div>
     </div>
   </section>
 </div>

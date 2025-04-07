@@ -16,60 +16,61 @@ import { ArtworksService } from '@services/artworks';
 })
 export class FavouritePageComponent {
   public favoriteArtworks = signal<Artwork[]>([]);
-  public isLoadingInitialList = signal(true);
-  public isLoadingNextChunk = signal(false);
+  public isLoadingArtworksList = signal(true);
 
   private favoritesService = inject(FavoritesService);
   private artworksService = inject(ArtworksService);
 
-  private pageSize = 6;
-  private favoriteIds: number[] = [];
-  private currentIndex = 0;
+  private loadedIds = new Set<number>();
 
   constructor() {
     effect(() => {
-      this.favoriteIds = this.favoritesService.getFavorites()();
-      this.favoriteArtworks.set([]);
-      this.currentIndex = 0;
+      const currentIds = this.favoritesService.getFavorites()();
+      const existing = this.favoriteArtworks();
 
-      if (this.favoriteIds.length === 0) {
-        this.isLoadingInitialList.set(false);
-        return;
+      const existingIds = existing.map((a) => a.id);
+      const added = currentIds.filter((id) => !this.loadedIds.has(id));
+      const removed = existingIds.filter((id) => !currentIds.includes(id));
+
+      if (removed.length > 0) {
+        this.favoriteArtworks.set(existing.filter((a) => !removed.includes(a.id)));
+        removed.forEach((id) => this.loadedIds.delete(id));
       }
 
-      this.loadNextChunk(true);
+      if (this.loadedIds.size === 0 && currentIds.length > 0) {
+        this.isLoadingArtworksList.set(true);
+      }
+
+      if (added.length > 0) {
+        this.loadArtworks(added);
+      } else {
+        this.isLoadingArtworksList.set(false);
+      }
+
+      if (currentIds.length === 0) {
+        this.favoriteArtworks.set([]);
+        this.loadedIds.clear();
+        this.isLoadingArtworksList.set(false);
+      }
     });
   }
 
-  private async loadNextChunk(isInitial = false): Promise<void> {
-    if (this.currentIndex >= this.favoriteIds.length) {
-      this.isLoadingInitialList.set(false);
-      this.isLoadingNextChunk.set(false);
-      return;
-    }
-
-    if (isInitial) this.isLoadingInitialList.set(true);
-    else this.isLoadingNextChunk.set(true);
-
-    const nextIds = this.favoriteIds.slice(this.currentIndex, this.currentIndex + this.pageSize);
-    this.currentIndex += this.pageSize;
-
+  private async loadArtworks(ids: number[]): Promise<void> {
     try {
       const artworks = await Promise.all(
-        nextIds.map((id) => firstValueFrom(this.artworksService.getArtworkById(id))),
+        ids.map((id) => firstValueFrom(this.artworksService.getArtworkById(id))),
       );
 
-      this.favoriteArtworks.update((prev) => [
-        ...prev,
-        ...artworks.filter((a): a is Artwork => a !== undefined),
+      this.favoriteArtworks.update((current) => [
+        ...current,
+        ...artworks.filter((a): a is Artwork => {
+          if (!a) return false;
+          this.loadedIds.add(a.id);
+          return true;
+        }),
       ]);
     } finally {
-      if (isInitial) this.isLoadingInitialList.set(false);
-      else this.isLoadingNextChunk.set(false);
-
-      if (this.currentIndex < this.favoriteIds.length) {
-        this.loadNextChunk();
-      }
+      this.isLoadingArtworksList.set(false);
     }
   }
 }
