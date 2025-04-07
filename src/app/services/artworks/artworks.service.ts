@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Artwork } from '@models/artwork.model';
 import { map, Observable } from 'rxjs';
-import { Response } from '@models/response.model';
+import { Artwork } from '@models/artwork';
+import { Response } from '@models/response';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class ArtworksService {
   private apiUrl = 'https://api.artic.edu/api/v1/artworks';
 
   private static getArtworkImageUrl(artwork: Artwork, iiif_url: string): string {
-    let image_url = '';
+    let image_url;
     if (artwork.image_id !== null) {
       image_url = `${iiif_url}/${artwork.image_id}/full/843,/0/default.jpg`;
     } else {

@@ -1,8 +1,8 @@
 import { Component, computed, effect, inject, Signal } from '@angular/core';
-import { Artwork } from '@models/artwork.model';
-import { ArtworksService } from '@services/artworks/artworks.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Artwork } from '@models/artwork';
+import { ArtworksService } from '@services/artworks';
 
 @Component({
   selector: 'app-artwork-info-page',

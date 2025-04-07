@@ -1,9 +1,9 @@
 import { Component, effect, inject, Input, signal } from '@angular/core';
-import { Artwork } from '@models/artwork.model';
 import { Router } from '@angular/router';
-import { FavoritesService } from '@services/favorites/favorites.service';
-import { LoaderComponent } from '@components/loader/loader.component';
 import { NgIf } from '@angular/common';
+import { LoaderComponent } from '@components/loader';
+import { FavoritesService } from '@services/favorites';
+import { Artwork } from '@models/artwork';
 
 @Component({
   selector: 'app-picture',

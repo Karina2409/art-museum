@@ -1,11 +1,11 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { FavoritesService } from '@services/favorites/favorites.service';
-import { ArtworksService } from '@services/artworks/artworks.service';
-import { Artwork } from '@models/artwork.model';
 import { PictureComponent } from '@components/picture';
 import { firstValueFrom } from 'rxjs';
 import { NgIf } from '@angular/common';
-import { LoaderComponent } from '@components/loader/loader.component';
+import { LoaderComponent } from '@components/loader';
+import { Artwork } from '@models/artwork';
+import { FavoritesService } from '@services/favorites';
+import { ArtworksService } from '@services/artworks';
 
 @Component({
   selector: 'app-favorite-page',

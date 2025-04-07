@@ -1,10 +1,10 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { PictureComponent } from '@components/picture/picture.component';
-import { Artwork } from '@models/artwork.model';
-import { ArtworksService } from '@services/artworks/artworks.service';
-import { SearchBarComponent } from '@components/search-bar';
 import { NgForOf, NgIf } from '@angular/common';
-import { LoaderComponent } from '@components/loader/loader.component';
+import { LoaderComponent } from '@components/loader';
+import { PictureComponent } from '@components/picture';
+import { SearchBarComponent } from '@components/search-bar';
+import { Artwork } from '@models/artwork';
+import { ArtworksService } from '@services/artworks';
 
 @Component({
   selector: 'app-home-page',
