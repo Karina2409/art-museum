@@ -54,4 +54,10 @@
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  justify-content: center;
+}
+
+.loader-wrapper {
+  grid-column: 1 / -1;
+  padding: 16px 0;
 }

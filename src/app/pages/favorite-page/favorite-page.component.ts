@@ -16,34 +16,60 @@ import { ArtworksService } from '@services/artworks';
 })
 export class FavouritePageComponent {
   public favoriteArtworks = signal<Artwork[]>([]);
-  public isLoadingArtworksList = signal(true);
+  public isLoadingInitialList = signal(true);
+  public isLoadingNextChunk = signal(false);
 
   private favoritesService = inject(FavoritesService);
   private artworksService = inject(ArtworksService);
 
+  private pageSize = 6;
+  private favoriteIds: number[] = [];
+  private currentIndex = 0;
+
   constructor() {
     effect(() => {
-      const favoriteIds = this.favoritesService.getFavorites()();
-      if (favoriteIds.length === 0) {
-        this.favoriteArtworks.set([]);
-        this.isLoadingArtworksList.set(false);
+      this.favoriteIds = this.favoritesService.getFavorites()();
+      this.favoriteArtworks.set([]);
+      this.currentIndex = 0;
+
+      if (this.favoriteIds.length === 0) {
+        this.isLoadingInitialList.set(false);
         return;
       }
 
-      this.isLoadingArtworksList.set(true);
-
-      Promise.all(
-        favoriteIds.map(
-          async (id) => await firstValueFrom(this.artworksService.getArtworkById(id)),
-        ),
-      )
-        .then((artworks) => {
-          this.favoriteArtworks.set(artworks.filter((a) => a !== undefined));
-          this.isLoadingArtworksList.set(false);
-        })
-        .catch(() => {
-          this.isLoadingArtworksList.set(false);
-        });
+      this.loadNextChunk(true);
     });
+  }
+
+  private async loadNextChunk(isInitial = false): Promise<void> {
+    if (this.currentIndex >= this.favoriteIds.length) {
+      this.isLoadingInitialList.set(false);
+      this.isLoadingNextChunk.set(false);
+      return;
+    }
+
+    if (isInitial) this.isLoadingInitialList.set(true);
+    else this.isLoadingNextChunk.set(true);
+
+    const nextIds = this.favoriteIds.slice(this.currentIndex, this.currentIndex + this.pageSize);
+    this.currentIndex += this.pageSize;
+
+    try {
+      const artworks = await Promise.all(
+        nextIds.map((id) => firstValueFrom(this.artworksService.getArtworkById(id))),
+      );
+
+      this.favoriteArtworks.update((prev) => [
+        ...prev,
+        ...artworks.filter((a): a is Artwork => a !== undefined),
+      ]);
+    } finally {
+      if (isInitial) this.isLoadingInitialList.set(false);
+      else this.isLoadingNextChunk.set(false);
+
+      if (this.currentIndex < this.favoriteIds.length) {
+        this.loadNextChunk();
+      }
+    }
   }
 }
