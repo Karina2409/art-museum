@@ -13,7 +13,10 @@
       <h3>Saved by you</h3>
       <h2>Your favorites list</h2>
     </div>
-    <div class="favorite-list">
+
+    <app-loader *ngIf="isLoadingArtworksList()"></app-loader>
+
+    <div class="favorite-list" *ngIf="!isLoadingArtworksList()">
       @for (artwork of favoriteArtworks(); track artwork.id) {
         <app-picture [artwork]="artwork" [isSmallVersion]="true"></app-picture>
       }
