@@ -26,6 +26,16 @@ export class ArtworksService {
     return image_url;
   }
 
+  private static getArtistNationality(artist_display: string): string {
+    if (artist_display.includes('\n')) {
+      return artist_display.split('\n')[1].split(',')[0];
+    }
+    if (artist_display.includes('(')) {
+      return artist_display.split('(')[1].split(',')[0];
+    }
+    return artist_display;
+  }
+
   public getArtworks(page: number = 1, limit: number = 3): Observable<Artwork[]> {
     const params = new HttpParams()
       .set('fields', 'id,title,artist_title,image_id,is_on_view')
@@ -51,16 +61,25 @@ export class ArtworksService {
   public getArtworkById(id: number): Observable<Artwork> {
     const params = new HttpParams().set(
       'fields',
-      'id,title,date_display,image_id,is_on_view,dimensions,credit_line,department_title,artist_title',
+      'id,title,date_display,image_id,is_on_view,dimensions,credit_line,department_title,artist_title,artist_display',
     );
 
     return this.http
       .get<{ data: Artwork; config: { iiif_url: string } }>(`${this.apiUrl}/${id}`, { params })
       .pipe(
-        map((response) => ({
-          ...response.data,
-          image_url: ArtworksService.getArtworkImageUrl(response.data, response.config.iiif_url),
-        })),
+        map((response) => {
+          const artwork: Artwork = {
+            ...response.data,
+            image_url: ArtworksService.getArtworkImageUrl(response.data, response.config.iiif_url),
+          };
+          if (artwork.artist_display !== undefined) {
+            artwork.artist_nationality = ArtworksService.getArtistNationality(
+              artwork.artist_display,
+            );
+          }
+
+          return artwork;
+        }),
         catchError((error) => {
           this.notification.show('Ошибка при загрузке картины по id. Попробуйте позже', 'danger');
           return throwError(() => error);
@@ -109,11 +128,6 @@ export class ArtworksService {
         this.totalPages.set(total_page);
 
         return { artworks, total_page };
-      }),
-      catchError((error) => {
-        this.notification.show('Ошибка при загрузке картин. Попробуйте позже', 'danger');
-        console.log('error');
-        return throwError(() => error);
       }),
     );
   }

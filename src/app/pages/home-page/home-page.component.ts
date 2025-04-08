@@ -5,6 +5,7 @@ import { PictureComponent } from '@components/picture';
 import { SearchBarComponent } from '@components/search-bar';
 import { Artwork } from '@models/artwork';
 import { ArtworksService } from '@services/artworks';
+import { NotificationsService } from '@services/notifications';
 
 @Component({
   selector: 'app-home-page',
@@ -21,9 +22,11 @@ export class HomePageComponent {
   public itemsPerPage = signal(3);
   public visiblePageCount: number = 4;
   public searchQuery = signal('');
+  public isLoadingPaginationArtworks = signal(true);
   public isLoadingArtworksList = signal(true);
 
   private artworksService = inject(ArtworksService);
+  private notification = inject(NotificationsService);
 
   constructor() {
     this.updateItemsPerPage();
@@ -81,10 +84,16 @@ export class HomePageComponent {
   }
 
   private loadArtworksPagination(query: string, page: number, perPage: number): void {
+    this.isLoadingPaginationArtworks.set(true);
     this.artworksService.searchArtworks(query, page, perPage).subscribe({
       next: ({ artworks, total_page }) => {
         this.artworksPagination.set(artworks);
         this.totalPages.set(total_page);
+        this.isLoadingPaginationArtworks.set(false);
+      },
+      error: () => {
+        this.isLoadingPaginationArtworks.set(false);
+        this.notification.show('Ошибка при загрузке картин. Попробуйте позже', 'danger');
       },
     });
   }
