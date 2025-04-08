@@ -1,8 +1,10 @@
-<app-loader *ngIf="isLoadingInfo()"></app-loader>
+<div *ngIf="isLoadingInfo()" class="d-flex justify-content-center align-items-center" style="min-height: 75vh">
+  <app-loader></app-loader>
+</div>
 <div class="wrapper" *ngIf="artwork as art" [class.hidden]="isLoadingInfo()">
   <section class="artwork-info-container">
     <div class="image-container">
-      <div class="image">
+      <div class="artwork-info-container__image" [class.hidden]="isLoadingImage()">
         <img
           src="{{ art.image_url }}"
           alt="{{ art.title }}"
@@ -10,13 +12,12 @@
           [class.default]="isDefaultImage"
           (load)="onImageLoad()"
           (error)="onImageError()"
-          [class.hidden]="isLoadingImage()"
         />
         <div class="favourite-icon" (click)="toggleFavorite($event)" [class.favourite-active]="isFavorite()">
           <img src="bookmark.svg" alt="bookmark" class="bookmark" />
         </div>
-        <app-loader *ngIf="isLoadingImage()"></app-loader>
       </div>
+      <app-loader *ngIf="isLoadingImage()"></app-loader>
     </div>
     <div class="artwork-info">
       <div class="image-info">

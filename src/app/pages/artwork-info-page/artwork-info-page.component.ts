@@ -5,6 +5,7 @@ import { Artwork } from '@models/artwork';
 import { ArtworksService } from '@services/artworks';
 import { LoaderComponent } from '@components/loader';
 import { FavoritesService } from '@services/favorites';
+import { NotificationsService } from '@services/notifications';
 
 @Component({
   selector: 'app-artwork-info-page',
@@ -27,6 +28,7 @@ export class ArtworkInfoPageComponent {
   private artworksService = inject(ArtworksService);
   private activateRoute = inject(ActivatedRoute);
   private favoritesService = inject(FavoritesService);
+  private notification = inject(NotificationsService);
 
   constructor() {
     effect(() => {
@@ -62,6 +64,7 @@ export class ArtworkInfoPageComponent {
     if (this.artwork) {
       this.artwork.image_url = 'default-image.png';
       this.isLoadingImage.set(false);
+      this.notification.show('Ошибка загрузки изображения', 'warning');
     }
   }
 }

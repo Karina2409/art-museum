@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { LoaderComponent } from '@components/loader';
 import { FavoritesService } from '@services/favorites';
 import { Artwork } from '@models/artwork';
+import { NotificationsService } from '@services/notifications';
 
 @Component({
   selector: 'app-picture',
@@ -21,6 +22,7 @@ export class PictureComponent {
 
   private router = inject(Router);
   private favoritesService = inject(FavoritesService);
+  private notification = inject(NotificationsService);
 
   constructor() {
     effect(() => {
@@ -51,5 +53,6 @@ export class PictureComponent {
   protected onImageError(): void {
     this.artwork.image_url = 'default-image.png';
     this.isLoadingCard.set(false);
+    this.notification.show('Ошибка загрузки изображения', 'warning');
   }
 }
