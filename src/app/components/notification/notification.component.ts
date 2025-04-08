@@ -4,7 +4,7 @@ import { NgClass, NgForOf } from '@angular/common';
 import { Notification } from '@models/notification';
 
 @Component({
-  selector: 'app-notification-type',
+  selector: 'app-notification',
   imports: [NgClass, NgForOf],
   templateUrl: './notification.component.html',
   standalone: true,
