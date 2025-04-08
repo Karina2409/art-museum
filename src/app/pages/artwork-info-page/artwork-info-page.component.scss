@@ -33,6 +33,18 @@
   }
 }
 
+.image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.favourite-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
 .artwork-image {
   width: 100%;
   height: 100%;

@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { Artwork } from '@models/artwork';
 import { ArtworksService } from '@services/artworks';
 import { LoaderComponent } from '@components/loader';
+import { FavoritesService } from '@services/favorites';
 
 @Component({
   selector: 'app-artwork-info-page',
@@ -16,6 +17,7 @@ export class ArtworkInfoPageComponent {
   public artwork: Artwork | null = null;
 
   public isLoadingInfo = signal(true);
+  public isFavorite = signal(false);
 
   private artworkId: Signal<number> = computed(() =>
     Number(this.activateRoute.snapshot.paramMap.get('artworkId')),
@@ -23,6 +25,7 @@ export class ArtworkInfoPageComponent {
 
   private artworksService = inject(ArtworksService);
   private activateRoute = inject(ActivatedRoute);
+  private favoritesService = inject(FavoritesService);
 
   constructor() {
     effect(() => {
@@ -37,6 +40,13 @@ export class ArtworkInfoPageComponent {
 
   protected get isDefaultImage(): boolean {
     return this.artwork?.image_url.includes('default-image.png') ?? true;
+  }
+
+  public toggleFavorite(event: Event): void {
+    event.stopPropagation();
+    if (this.artwork === null) return;
+    this.favoritesService.toggleFavorite(this.artwork.id);
+    this.isFavorite.set(this.favoritesService.isFavorite(this.artwork.id));
   }
 
   public onImageLoad(): void {

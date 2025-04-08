@@ -1,15 +1,20 @@
 <div class="wrapper" *ngIf="artwork as art">
   <section class="artwork-info-container">
     <div class="image-container">
-      <img
-        src="{{ art.image_url }}"
-        alt="{{ art.title }}"
-        class="artwork-image"
-        [class.default]="isDefaultImage"
-        (load)="onImageLoad()"
-        (error)="onImageError()"
-        [class.hidden]="isLoadingInfo()"
-      />
+      <div class="image">
+        <img
+          src="{{ art.image_url }}"
+          alt="{{ art.title }}"
+          class="artwork-image"
+          [class.default]="isDefaultImage"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+          [class.hidden]="isLoadingInfo()"
+        />
+        <div class="favourite-icon" (click)="toggleFavorite($event)" [class.favourite-active]="isFavorite()">
+          <img src="bookmark.svg" alt="bookmark" class="bookmark" />
+        </div>
+      </div>
       <app-loader *ngIf="isLoadingInfo()"></app-loader>
     </div>
     <div class="artwork-info">

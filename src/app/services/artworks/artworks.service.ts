@@ -110,11 +110,6 @@ export class ArtworksService {
 
         return { artworks, total_page };
       }),
-      catchError((error) => {
-        this.notification.show('Ошибка при загрузке картин. Попробуйте позже', 'danger');
-        console.log('error');
-        return throwError(() => error);
-      }),
     );
   }
 }
