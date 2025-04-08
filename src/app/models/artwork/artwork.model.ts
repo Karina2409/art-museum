@@ -9,4 +9,6 @@ export type Artwork = {
   dimensions?: string;
   credit_line?: string;
   department_title?: string;
+  artist_nationality?: string;
+  artist_display?: string;
 };

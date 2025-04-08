@@ -1,29 +1,39 @@
-<div class="wrapper" *ngIf="artwork as art">
+<div *ngIf="isLoadingInfo()" class="d-flex justify-content-center align-items-center" style="min-height: 75vh">
+  <app-loader></app-loader>
+</div>
+<div class="wrapper" *ngIf="artwork as art" [class.hidden]="isLoadingInfo()">
   <section class="artwork-info-container">
     <div class="image-container">
-      <img
-        src="{{ art.image_url }}"
-        alt="{{ art.title }}"
-        class="artwork-image"
-        [class.default]="isDefaultImage"
-        (load)="onImageLoad()"
-        (error)="onImageError()"
-        [class.hidden]="isLoadingInfo()"
-      />
-      <app-loader *ngIf="isLoadingInfo()"></app-loader>
+      <div class="artwork-info-container__image" [class.hidden]="isLoadingImage()">
+        <img
+          src="{{ art.image_url }}"
+          alt="{{ art.title }}"
+          class="artwork-image"
+          [class.default]="isDefaultImage"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+        />
+        <div class="favourite-icon" (click)="toggleFavorite($event)" [class.favourite-active]="isFavorite()">
+          <img src="bookmark.svg" alt="bookmark" class="bookmark" />
+        </div>
+      </div>
+      <app-loader *ngIf="isLoadingImage()"></app-loader>
     </div>
     <div class="artwork-info">
       <div class="image-info">
-        <h1 class="heading">{{ art.title }}</h1>
+        <h1 class="heading">{{ art.title ? art.title : 'Unknown title' }}</h1>
         <div class="author-info">
-          <h2 class="author-name">{{ art.artist_title }}</h2>
-          <p class="dates">{{ art.date_display }}</p>
+          <h2 class="author-name">{{ art.artist_title ? art.artist_title : 'Unknown artist' }}</h2>
+          <p class="dates">{{ art.date_display ? art.date_display : 'Unknown date' }}</p>
         </div>
       </div>
       <div class="overview-container">
         <h2 class="heading">Overview</h2>
         <div class="overview-info">
-          <div class="overview-info__line"><span>Artist nacionality:</span></div>
+          <div class="overview-info__line">
+            <span>Artist nacionality:</span>
+            {{ art.artist_nationality }}
+          </div>
           <div class="overview-info__line">
             <span>Dimensions: Sheet:</span>
             {{ art.dimensions }}

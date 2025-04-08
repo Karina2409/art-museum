@@ -24,6 +24,10 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .image.default {
@@ -52,6 +56,10 @@
     left: 20px;
     min-width: 325px;
     max-width: 325px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -110,6 +118,7 @@
 }
 
 .favourite-icon {
+  position: unset;
   width: 59px;
   height: 59px;
   padding: 17px;
@@ -125,7 +134,7 @@
   }
 
   &.favourite-active {
-    background: rgba(251, 215, 178, 0.3);
+    background: #fef3e8;
   }
 }
 
@@ -144,6 +153,7 @@
 
   &:hover {
     transform: scale(1.03);
+    cursor: pointer;
   }
 }
 
