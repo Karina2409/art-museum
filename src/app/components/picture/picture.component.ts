@@ -1,11 +1,13 @@
-import { Component, effect, inject, Input, signal, WritableSignal } from '@angular/core';
-import { Artwork } from '@models/artwork.model';
+import { Component, effect, inject, Input, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FavoritesService } from '@services/favorites/favorites.service';
+import { NgIf } from '@angular/common';
+import { LoaderComponent } from '@components/loader';
+import { FavoritesService } from '@services/favorites';
+import { Artwork } from '@models/artwork';
 
 @Component({
   selector: 'app-picture',
-  imports: [],
+  imports: [LoaderComponent, NgIf],
   templateUrl: './picture.component.html',
   standalone: true,
   styleUrl: './picture.component.scss',
@@ -14,7 +16,8 @@ export class PictureComponent {
   @Input() public artwork!: Artwork;
   @Input() public isSmallVersion!: boolean;
 
-  public isFavorite: WritableSignal<boolean> = signal(false);
+  public isFavorite = signal(false);
+  public isLoadingCard = signal(true);
 
   private router = inject(Router);
   private favoritesService = inject(FavoritesService);
@@ -41,7 +44,12 @@ export class PictureComponent {
     this.router.navigate([`/artwork/${id}`]);
   }
 
+  public onImageLoad(): void {
+    this.isLoadingCard.set(false);
+  }
+
   protected onImageError(): void {
     this.artwork.image_url = 'default-image.png';
+    this.isLoadingCard.set(false);
   }
 }

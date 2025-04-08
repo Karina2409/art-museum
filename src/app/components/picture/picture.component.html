@@ -1,11 +1,13 @@
 @if (!isSmallVersion) {
-  <div class="picture">
+  <app-loader *ngIf="isLoadingCard()"></app-loader>
+  <div class="picture" [class.hidden]="isLoadingCard()">
     <div class="image-container" (click)="navigateToArtworkInfo(artwork.id)">
       <img
         src="{{ artwork.image_url }}"
         alt="img"
         class="image"
         [class.default]="isDefaultImage"
+        (load)="onImageLoad()"
         (error)="onImageError()"
       />
     </div>

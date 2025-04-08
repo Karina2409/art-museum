@@ -1,4 +1,4 @@
-import { Artwork } from '@models/artwork.model';
+import { Artwork } from '@models/artwork';
 
 export type Response = {
   data: Artwork[];

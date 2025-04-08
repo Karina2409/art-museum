@@ -6,8 +6,11 @@
         alt="{{ art.title }}"
         class="artwork-image"
         [class.default]="isDefaultImage"
+        (load)="onImageLoad()"
         (error)="onImageError()"
+        [class.hidden]="isLoadingInfo()"
       />
+      <app-loader *ngIf="isLoadingInfo()"></app-loader>
     </div>
     <div class="artwork-info">
       <div class="image-info">
