@@ -16,6 +16,7 @@ import { FavoritesService } from '@services/favorites';
 export class ArtworkInfoPageComponent {
   public artwork: Artwork | null = null;
 
+  public isLoadingImage = signal(true);
   public isLoadingInfo = signal(true);
   public isFavorite = signal(false);
 
@@ -32,7 +33,11 @@ export class ArtworkInfoPageComponent {
       const id = this.artworkId();
       if (id) {
         this.artworksService.getArtworkById(id).subscribe({
-          next: (artwork) => (this.artwork = artwork),
+          next: (artwork) => {
+            this.artwork = artwork;
+            this.isFavorite.set(this.favoritesService.isFavorite(artwork.id));
+            this.isLoadingInfo.set(false);
+          },
         });
       }
     });
@@ -50,13 +55,13 @@ export class ArtworkInfoPageComponent {
   }
 
   public onImageLoad(): void {
-    this.isLoadingInfo.set(false);
+    this.isLoadingImage.set(false);
   }
 
   protected onImageError(): void {
     if (this.artwork) {
       this.artwork.image_url = 'default-image.png';
-      this.isLoadingInfo.set(false);
+      this.isLoadingImage.set(false);
     }
   }
 }
